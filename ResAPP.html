@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Application</title>
+</head>
+<body>
+    <h1>Restaurant Menu</h1>
+ 
+    <input type="text" placeholder="Enter the food name" id="foodname">
+    <input type="text" placeholder="Enter the price" id="foodprice">
+
+    <br><br>
+    <button onclick="showFood()">Submit</button>
+    <br><br>
+    <span id="span" style="font-weight: bold; color: green;"></span>
+
+    <script>
+        
+    let foodNameInput = document.getElementById("foodname");
+    let foodPriceInput = document.getElementById("foodprice");
+
+    function showFood() {
+        let name = foodNameInput.value;
+        let price = foodPriceInput.value;
+
+        if (name === "" || price === "") {
+            document.getElementById("span").innerText = "Please fill both fields!";
+            document.getElementById("span").style.color = "red";
+            return;
+        }
+
+        // 1. LocalStorage mein save karein
+        localStorage.setItem(name, price);
+
+        let span = document.getElementById("span");
+        span.innerHTML = ""; // Har baar purana text clear karne ke liye
+        span.style.color = "green";
+
+        // 2. LocalStorage ke saare items par loop chalane ka tareeqa
+        for (let i = 0; i < localStorage.length; i++) {
+            let foodName = localStorage.key(i); // Key (Food Name) milega
+            let foodPrice = localStorage.getItem(foodName); // Value (Price) milega
+
+            // Screen par sabhi items print honge
+            span.innerHTML += `<br>Food Name: ${foodName} and Price: ₹${foodPrice}`;
+        }
+    }
+
+    </script>
+</body>
+</html>
